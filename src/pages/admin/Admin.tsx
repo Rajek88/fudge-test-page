@@ -2,6 +2,7 @@ import { Button } from "components/Button";
 import { Input } from "components/Input";
 import { Page } from "components/Page";
 import { Select } from "components/Select";
+import TableSetup from "components/tableSetup/TableSetup";
 import React, { useState } from "react";
 import { validateEmail } from "utils/validators/Validators";
 
@@ -10,6 +11,7 @@ type Props = {};
 const Admin = (props: Props) => {
   const [email, setEmail] = useState<string>("");
   const [team, setTeam] = useState<string>("A");
+  const [rows, setRows] = useState<object[]>([]);
   const teams = ["A", "B", "C", "D"];
   const [err, setErr] = useState<boolean>(false);
 
@@ -29,7 +31,17 @@ const Admin = (props: Props) => {
     setEmail(mailId);
   };
 
-  const inviteUser = () => {};
+  const inviteUser = () => {
+    setRows((p) => [
+      ...p,
+      {
+        "Sr. no": p.length + 1,
+        email: email,
+        status: "invited",
+        time: Date.now(),
+      },
+    ]);
+  };
 
   return (
     <Page
@@ -50,19 +62,15 @@ const Admin = (props: Props) => {
       </div>
       <div>
         <div className="flex justify-between items-center">
-          <Button
-            onClick={() =>
-              alert(
-                JSON.stringify({
-                  team,
-                  email,
-                })
-              )
-            }
-          >
-            Invite
-          </Button>
+          <Button onClick={() => inviteUser()}>Invite</Button>
         </div>
+      </div>
+      <div>
+        <h2 className="py-2 font-semibold">Invitations sent.</h2>
+        <TableSetup
+          columns={["Sr. no", "email", "status", "time"]}
+          rows={rows}
+        />
       </div>
     </Page>
   );
