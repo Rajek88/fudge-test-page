@@ -50,7 +50,18 @@ const Admin = (props: Props) => {
       </div>
       <div>
         <div className="flex justify-between items-center">
-          <Button onClick={() => alert("hi!")}>Invite</Button>
+          <Button
+            onClick={() =>
+              alert(
+                JSON.stringify({
+                  team,
+                  email,
+                })
+              )
+            }
+          >
+            Invite
+          </Button>
         </div>
       </div>
     </Page>
