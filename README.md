@@ -31,15 +31,15 @@ You can invite anyone to a specific team.
 You can see your invites and their status.
 
 ## Go to dashboard page
-```javascript
+```bash
   http://localhost:3000/dashboard
 ```
 if you are not logged in, the app will redirect you to:
-```javascript
+```bash
   http://localhost:3000/login
 ```
 You can also signup from
-```javascript
+```bash
   http://localhost:3000/signup
 ```
 ### Dashboard
