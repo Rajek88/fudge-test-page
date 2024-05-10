@@ -52,7 +52,7 @@ const Signup: React.FC = () => {
       });
       // if we get ok in response, then ask user to login now
       if (res.ok) {
-        return navigate("/user/login");
+        return navigate("/login");
       } else {
         // else something failed, throw error
         throw Error();
@@ -121,9 +121,14 @@ const Signup: React.FC = () => {
         <div className="mt-4 text-center">
           <p>
             Already have an account?{" "}
-            <a href="/login" className="text-blue-500 font-semibold">
+            <button
+              onClick={() => {
+                navigate("/login");
+              }}
+              className="text-blue-500 font-semibold"
+            >
               Login
-            </a>
+            </button>
           </p>
         </div>
       </div>

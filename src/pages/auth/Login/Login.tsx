@@ -1,8 +1,10 @@
 import { USE_BASE_URL } from "config/URL";
 import ShowError from "pages/components/ShowError";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState(false);
@@ -111,9 +113,14 @@ const Login: React.FC = () => {
         <div className="mt-4 text-center">
           <p>
             Don't have an account?{" "}
-            <a href="/signup" className="text-blue-500 font-semibold">
+            <button
+              onClick={() => {
+                navigate("/signup");
+              }}
+              className="text-blue-500 font-semibold"
+            >
               Sign Up
-            </a>
+            </button>
           </p>
         </div>
       </div>

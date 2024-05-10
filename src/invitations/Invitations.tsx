@@ -29,19 +29,24 @@ const Invitations = (props: Props) => {
         return navigate("/dashboard");
       }, 3000);
     };
-
-    if (profile?.token) {
-      fetchData();
+    // make sure code only runs when profile is loaded
+    if (!isLoading) {
+      if (profile?.token) {
+        fetchData();
+      } else {
+        // set the link to sessionStorage as mustRedirectTo
+        sessionStorage.setItem("mustRedirectTo", window.location.href);
+        navigate("/login");
+      }
     }
 
     return () => {};
-  }, [profile, invitation_id, navigate, isLoading]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoading]);
 
   return (
     <h2 className="p-8 m-8 font-bold">
-      {invitation_id && profile?.token
-        ? `Processing your invitation...`
-        : "Invalid invitation"}
+      {invitation_id ? `Processing your invitation...` : "Invalid invitation"}
     </h2>
   );
 };

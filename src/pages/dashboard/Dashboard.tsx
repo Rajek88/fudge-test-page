@@ -76,6 +76,15 @@ const Dashboard = (props: Props) => {
     }
 
     try {
+      // check for session storage to get must Redirect
+      const shouldRedirect = sessionStorage.getItem("mustRedirectTo");
+      if (shouldRedirect) {
+        // first delete the key, to avoid loop and repeated call
+        sessionStorage.removeItem("mustRedirectTo");
+        // now move to that page
+        window.location.href = shouldRedirect;
+        return;
+      }
       socketer();
       fetchData();
     } catch (error) {}
