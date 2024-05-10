@@ -1,8 +1,12 @@
+import { USE_BASE_URL } from "config/URL";
+import ShowError from "pages/components/ShowError";
 import React, { useState } from "react";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [err, setErr] = useState(false);
+  const [errMsg, setErrMsg] = useState("Oops! Something went wrong.");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -12,16 +16,63 @@ const Login: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const showError = (errMsg: string) => {
+    // setError message
+    if (!errMsg) {
+      setErrMsg("Oops! Something went wrong.");
+    } else {
+      setErrMsg(errMsg);
+    }
+    // setErr as true
+    setErr(true);
+    // after 2 seconds make it false
+    setTimeout(() => {
+      setErr(false);
+    }, 2000);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
+    // make API call to BE
+    try {
+      const res = await fetch(`${USE_BASE_URL}/user/login`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      // if we get ok in response, then ask user to login now
+      if (res.ok) {
+        // this means we have received the token now
+        const data = await res.json();
+        // now store it as user in localStorage
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...data,
+          })
+        );
+        return setTimeout(() => {
+          return window.location.reload();
+        }, 1000);
+      } else {
+        // else something failed, throw error
+        throw Error();
+      }
+    } catch (error) {
+      return showError("Error while signing you up! Please try again later");
+    }
   };
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
+        {err && (
+          <div>
+            <ShowError message={errMsg} />
+          </div>
+        )}
         <h2 className="text-2xl font-bold mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

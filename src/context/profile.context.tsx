@@ -8,7 +8,7 @@ import React, {
 } from "react";
 
 interface Profile {
-  user: string | null;
+  user: any | null;
   token: string | null;
 }
 
@@ -27,14 +27,18 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    console.log("Initing the system");
-    const data = JSON.parse(window.localStorage.getItem("user") || "");
-    const token = data?.token;
-    const user = data?.user;
-    if (user && token) {
-      setProfile({ user, token });
-      setLoading(false);
-    } else {
+    // console.log("Initing the system");
+    try {
+      const data = JSON.parse(window.localStorage.getItem("user") || "");
+      const token = data?.token;
+      const user = data?.user;
+      if (user && token) {
+        setProfile({ user, token });
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } catch (error) {
       setLoading(false);
     }
     return () => {
@@ -45,7 +49,7 @@ export function ProfileProvider({ children }: { children: ReactNode }) {
   const isLoading = useMemo(() => ({ isLoading: loading }), [loading]);
   const profile = useMemo(() => ({ profile: userProfile }), [userProfile]);
 
-  console.log({ isLoading, profile });
+  // console.log({ isLoading, profile });
 
   return (
     <ProfileContext.Provider value={{ ...isLoading, ...profile }}>
