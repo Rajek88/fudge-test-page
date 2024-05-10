@@ -79,6 +79,7 @@ const Admin = (props: Props) => {
           email: i.email,
           status: i.status,
           team: i.team,
+          joinedTeams: i.joinedTeams?.join(","),
           time: i.updated_at,
         };
         count++;
@@ -86,6 +87,7 @@ const Admin = (props: Props) => {
       }
       // now set the rows
       setRows(rowsToRender);
+      console.log({ rowsToRender });
     }
 
     fetchData();
@@ -118,7 +120,7 @@ const Admin = (props: Props) => {
       <div>
         <h2 className="py-2 font-semibold">Invitations sent.</h2>
         <TableSetup
-          columns={["Sr. no", "email", "team", "status", "time"]}
+          columns={["Sr. no", "email", "team", "status", "time", "joinedTeams"]}
           rows={rows}
         />
       </div>
