@@ -3,4 +3,10 @@ const BASE_URL = {
   PROD: "",
 };
 
+const BASE_SOCKET_URL = {
+  DEV: "ws://127.0.0.1:8787",
+  PROD: "",
+};
+
 export const USE_BASE_URL = BASE_URL.DEV;
+export const USE_BASE_SOCKET_URL = BASE_SOCKET_URL.DEV;
