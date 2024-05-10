@@ -98,7 +98,7 @@ const Admin = (props: Props) => {
   return (
     <Page
       title="Admin Page"
-      className="[&>div]:py-8 [&>div:first-child]:pt-0 [&>div:last-child]:pb-0 divide-y"
+      className="[&>div]:py-8 [&>div:first-child]:pt-0 [&>div:last-child]:pb-0"
     >
       <div>
         <h2 className="py-2 font-semibold">Select team.</h2>
