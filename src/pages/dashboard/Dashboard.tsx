@@ -25,6 +25,11 @@ const Dashboard = (props: Props) => {
     });
   }
 
+  const logout = () => {
+    localStorage.removeItem("user");
+    return window.location.reload();
+  };
+
   useEffect(() => {
     // fetch list of users belonging to team where current logged in user is member of
     async function socketer() {
@@ -89,6 +94,12 @@ const Dashboard = (props: Props) => {
       title={`Hi ${profile?.user?.name}`}
       className="[&>div]:py-4 [&>div:first-child]:pt-0 [&>div:last-child]:pb-0 divide-y"
     >
+      <button
+        className="w-full text-end text-red-700 font-bold"
+        onClick={logout}
+      >
+        Logout
+      </button>
       <div className="font-bold text-lg">All Teams</div>
       {/* loop over the team wise list of users */}
       {Object.keys(teamMembers).map((key: string, index: number) => (
