@@ -11,6 +11,7 @@ import PublicRoute from "authRoutes/PublicRoute";
 import PrivateRoute from "authRoutes/PrivateRoute";
 import Dashboard from "pages/dashboard/Dashboard";
 import { ProfileProvider } from "context/profile.context";
+import Invitations from "invitations/Invitations";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
@@ -22,6 +23,14 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/invitations",
+    element: <Invitations />,
+  },
+  {
+    path: "/invitations/:id",
+    element: <Invitations />,
   },
   {
     path: "/login",
