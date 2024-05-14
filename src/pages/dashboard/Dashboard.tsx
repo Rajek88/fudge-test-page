@@ -13,7 +13,7 @@ const Dashboard = (props: Props) => {
 
   async function connectSocketToServer() {
     const ws = new WebSocket(
-      `${USE_BASE_SOCKET_URL}/websocket?user_id=${profile.user.id}`
+      `${USE_BASE_SOCKET_URL}/websocket?token=${profile.token}`
     );
     return new Promise((resolve, reject) => {
       const timer = setInterval(() => {
